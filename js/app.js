@@ -1,35 +1,12 @@
-import { criarCatalogo }
-from "./pages/catalogo.js"
+import { criarDetalhes }
+from "./pages/detalhes.js"
 
 const app =
 document.getElementById("app")
 
-async function iniciar() {
+const detalhes =
+criarDetalhes()
 
-    try{
-
-        const catalogo =
-        await criarCatalogo()
-
-        app.appendChild(
-            catalogo
-        )
-
-    }
-    catch(erro){
-
-        const mensagem =
-        document.createElement("h2")
-
-        mensagem.textContent =
-        "Erro ao carregar jogos"
-
-        app.appendChild(
-            mensagem
-        )
-
-        console.error(erro)
-    }
-}
-
-iniciar()
+app.appendChild(
+    detalhes
+)
