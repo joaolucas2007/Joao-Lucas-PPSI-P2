@@ -1,12 +1,35 @@
 import { listarJogos }
 from "../functions/produtos.js"
 
-export async function criarCatalogo() {
+import { abrirDetalhes }
+from "../app.js"
+
+export async function criarCatalogo(){
 
     const section =
     document.createElement("section")
 
-    section.id = "catalogo"
+    const titulo =
+    document.createElement("h1")
+
+    titulo.textContent =
+    "Catálogo de Jogos"
+
+    const botaoNovo =
+    document.createElement("button")
+
+    botaoNovo.textContent =
+    "Cadastrar Jogo"
+
+    botaoNovo.addEventListener(
+        "click",
+        abrirDetalhes
+    )
+
+    section.append(
+        titulo,
+        botaoNovo
+    )
 
     const jogos =
     await listarJogos()
@@ -16,21 +39,11 @@ export async function criarCatalogo() {
         const card =
         document.createElement("article")
 
-        card.classList.add("card")
-
         const imagem =
         document.createElement("img")
 
         imagem.src =
         jogo.imagemUrl
-
-        imagem.alt =
-        jogo.nome
-
-        const corpo =
-        document.createElement("div")
-
-        corpo.classList.add("card-body")
 
         const nome =
         document.createElement("h2")
@@ -47,25 +60,22 @@ export async function criarCatalogo() {
         const preco =
         document.createElement("p")
 
-        preco.classList.add("preco")
-
         preco.textContent =
         `R$ ${jogo.preco}`
 
-        corpo.append(
+        card.append(
+            imagem,
             nome,
             descricao,
             preco
         )
 
-        card.append(
-            imagem,
-            corpo
+        section.appendChild(
+            card
         )
-
-        section.appendChild(card)
 
     })
 
     return section
+
 }

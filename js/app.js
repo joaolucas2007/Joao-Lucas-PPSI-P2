@@ -1,12 +1,60 @@
+import { criarLogin }
+from "./pages/login.js"
+
+import { criarCatalogo }
+from "./pages/catalogo.js"
+
 import { criarDetalhes }
 from "./pages/detalhes.js"
 
 const app =
 document.getElementById("app")
 
-const detalhes =
-criarDetalhes()
+function limparTela(){
 
-app.appendChild(
-    detalhes
-)
+    app.replaceChildren()
+
+}
+
+export async function abrirCatalogo(){
+
+    limparTela()
+
+    const catalogo =
+    await criarCatalogo()
+
+    app.appendChild(
+        catalogo
+    )
+
+}
+
+export function abrirDetalhes(){
+
+    limparTela()
+
+    const detalhes =
+    criarDetalhes()
+
+    app.appendChild(
+        detalhes
+    )
+
+}
+
+function abrirLogin(){
+
+    limparTela()
+
+    const login =
+    criarLogin(
+        abrirCatalogo
+    )
+
+    app.appendChild(
+        login
+    )
+
+}
+
+abrirLogin()

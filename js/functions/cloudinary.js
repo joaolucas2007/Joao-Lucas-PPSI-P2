@@ -1,10 +1,15 @@
-const CLOUD_NAME = "dwetjo8nf"
+const CLOUD_NAME =
+"dwetjo8nf"
 
-const UPLOAD_PRESET = "p2ppsi"
+const UPLOAD_PRESET =
+"p2ppsi"
 
-export async function uploadImagem(arquivo) {
+export async function uploadImagem(
+    arquivo
+){
 
-    const formData = new FormData()
+    const formData =
+    new FormData()
 
     formData.append(
         "file",
@@ -20,12 +25,12 @@ export async function uploadImagem(arquivo) {
     await fetch(
         `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
         {
-            method: "POST",
-            body: formData
+            method:"POST",
+            body:formData
         }
     )
 
-    if (!resposta.ok) {
+    if(!resposta.ok){
 
         throw new Error(
             "Erro ao enviar imagem"
@@ -37,4 +42,5 @@ export async function uploadImagem(arquivo) {
     await resposta.json()
 
     return dados.secure_url
+
 }

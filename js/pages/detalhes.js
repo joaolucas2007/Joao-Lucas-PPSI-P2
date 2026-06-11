@@ -1,14 +1,22 @@
-import { uploadImagem }
+import {
+    criarJogo
+}
+from "../functions/produtos.js"
+
+import {
+    uploadImagem
+}
 from "../functions/cloudinary.js"
 
-export function criarDetalhes() {
+import {
+    abrirCatalogo
+}
+from "../app.js"
+
+export function criarDetalhes(){
 
     const section =
     document.createElement("section")
-
-    section.classList.add(
-        "detalhes"
-    )
 
     const titulo =
     document.createElement("h2")
@@ -16,83 +24,57 @@ export function criarDetalhes() {
     titulo.textContent =
     "Cadastrar Jogo"
 
-    const nomeLabel =
-    document.createElement("label")
-
-    nomeLabel.textContent =
-    "Nome do Jogo"
-
     const inputNome =
     document.createElement("input")
 
-    inputNome.type = "text"
-
-    const descricaoLabel =
-    document.createElement("label")
-
-    descricaoLabel.textContent =
-    "Descrição"
+    inputNome.placeholder =
+    "Nome"
 
     const inputDescricao =
     document.createElement("textarea")
 
-    const categoriaLabel =
-    document.createElement("label")
-
-    categoriaLabel.textContent =
-    "Categoria"
+    inputDescricao.placeholder =
+    "Descrição"
 
     const inputCategoria =
     document.createElement("input")
 
-    inputCategoria.type = "text"
+    inputCategoria.type =
+    "number"
 
-    const precoLabel =
-    document.createElement("label")
-
-    precoLabel.textContent =
-    "Preço"
+    inputCategoria.placeholder =
+    "Categoria ID"
 
     const inputPreco =
     document.createElement("input")
 
-    inputPreco.type = "number"
+    inputPreco.type =
+    "number"
 
-    const estoqueLabel =
-    document.createElement("label")
-
-    estoqueLabel.textContent =
-    "Estoque"
+    inputPreco.placeholder =
+    "Preço"
 
     const inputEstoque =
     document.createElement("input")
 
-    inputEstoque.type = "number"
+    inputEstoque.type =
+    "number"
 
-    const imagemLabel =
-    document.createElement("label")
-
-    imagemLabel.textContent =
-    "Imagem"
+    inputEstoque.placeholder =
+    "Estoque"
 
     const inputImagem =
     document.createElement("input")
 
-    inputImagem.type = "file"
-
-    inputImagem.accept =
-    "image/*"
+    inputImagem.type =
+    "file"
 
     const preview =
     document.createElement("img")
 
-    preview.classList.add(
-        "preview"
-    )
-
     inputImagem.addEventListener(
         "change",
-        () => {
+        ()=>{
 
             const arquivo =
             inputImagem.files[0]
@@ -113,18 +95,19 @@ export function criarDetalhes() {
     document.createElement("button")
 
     botaoSalvar.textContent =
-    "Salvar Jogo"
+    "Salvar"
 
     botaoSalvar.addEventListener(
         "click",
-        async () => {
+        async ()=>{
 
             try{
 
+                let imagemUrl =
+                ""
+
                 const arquivo =
                 inputImagem.files[0]
-
-                let imagemUrl = ""
 
                 if(arquivo){
 
@@ -140,30 +123,62 @@ export function criarDetalhes() {
                     nome:
                     inputNome.value,
 
+                    slug:
+                    inputNome.value
+                        .toLowerCase()
+                        .replaceAll(
+                            " ",
+                            "-"
+                        ),
+
                     descricao:
                     inputDescricao.value,
-
-                    categoria:
-                    inputCategoria.value,
 
                     preco:
                     Number(
                         inputPreco.value
                     ),
 
+                    precoAntigo:
+                    null,
+
+                    categoriaId:
+                    Number(
+                        inputCategoria.value
+                    ),
+
+                    imagemUrl:
+                    imagemUrl,
+
+                    galeria:[
+                        imagemUrl
+                    ],
+
                     estoque:
                     Number(
                         inputEstoque.value
                     ),
 
-                    imagemUrl
+                    ativo:
+                    true,
+
+                    emDestaque:
+                    false,
+
+                    ordemDestaque:
+                    null
+
                 }
 
-                console.log(jogo)
+                await criarJogo(
+                    jogo
+                )
 
                 alert(
-                    "Jogo pronto para salvar!"
+                    "Jogo cadastrado!"
                 )
+
+                abrirCatalogo()
 
             }
             catch(erro){
@@ -173,7 +188,7 @@ export function criarDetalhes() {
                 )
 
                 alert(
-                    "Erro ao enviar imagem"
+                    "Erro ao cadastrar"
                 )
 
             }
@@ -183,27 +198,13 @@ export function criarDetalhes() {
 
     section.append(
         titulo,
-
-        nomeLabel,
         inputNome,
-
-        descricaoLabel,
         inputDescricao,
-
-        categoriaLabel,
         inputCategoria,
-
-        precoLabel,
         inputPreco,
-
-        estoqueLabel,
         inputEstoque,
-
-        imagemLabel,
         inputImagem,
-
         preview,
-
         botaoSalvar
     )
 
