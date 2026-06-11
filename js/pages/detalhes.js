@@ -1,5 +1,6 @@
 import {
-    criarJogo
+    criarJogo,
+    atualizarJogo
 }
 from "../functions/produtos.js"
 
@@ -13,7 +14,9 @@ import {
 }
 from "../app.js"
 
-export function criarDetalhes(){
+export function criarDetalhes(
+    jogo = null
+){
 
     const section =
     document.createElement("section")
@@ -22,7 +25,9 @@ export function criarDetalhes(){
     document.createElement("h2")
 
     titulo.textContent =
-    "Cadastrar Jogo"
+    jogo
+    ? "Editar Jogo"
+    : "Cadastrar Jogo"
 
     const inputNome =
     document.createElement("input")
@@ -30,20 +35,17 @@ export function criarDetalhes(){
     inputNome.placeholder =
     "Nome"
 
+    inputNome.value =
+    jogo?.nome || ""
+
     const inputDescricao =
     document.createElement("textarea")
 
     inputDescricao.placeholder =
     "Descrição"
 
-    const inputCategoria =
-    document.createElement("input")
-
-    inputCategoria.type =
-    "number"
-
-    inputCategoria.placeholder =
-    "Categoria ID"
+    inputDescricao.value =
+    jogo?.descricao || ""
 
     const inputPreco =
     document.createElement("input")
@@ -54,6 +56,9 @@ export function criarDetalhes(){
     inputPreco.placeholder =
     "Preço"
 
+    inputPreco.value =
+    jogo?.preco || ""
+
     const inputEstoque =
     document.createElement("input")
 
@@ -63,14 +68,33 @@ export function criarDetalhes(){
     inputEstoque.placeholder =
     "Estoque"
 
+    inputEstoque.value =
+    jogo?.estoque || ""
+
     const inputImagem =
     document.createElement("input")
 
     inputImagem.type =
     "file"
 
+    inputImagem.accept =
+    "image/*"
+
     const preview =
     document.createElement("img")
+
+    preview.classList.add(
+        "preview"
+    )
+
+    if(
+        jogo?.imagemUrl
+    ){
+
+        preview.src =
+        jogo.imagemUrl
+
+    }
 
     inputImagem.addEventListener(
         "change",
@@ -95,7 +119,9 @@ export function criarDetalhes(){
     document.createElement("button")
 
     botaoSalvar.textContent =
-    "Salvar"
+    jogo
+    ? "Atualizar"
+    : "Salvar"
 
     botaoSalvar.addEventListener(
         "click",
@@ -104,7 +130,7 @@ export function criarDetalhes(){
             try{
 
                 let imagemUrl =
-                ""
+                jogo?.imagemUrl || ""
 
                 const arquivo =
                 inputImagem.files[0]
@@ -118,7 +144,7 @@ export function criarDetalhes(){
 
                 }
 
-                const jogo = {
+                const dadosJogo = {
 
                     nome:
                     inputNome.value,
@@ -143,9 +169,7 @@ export function criarDetalhes(){
                     null,
 
                     categoriaId:
-                    Number(
-                        inputCategoria.value
-                    ),
+                    1,
 
                     imagemUrl:
                     imagemUrl,
@@ -170,13 +194,29 @@ export function criarDetalhes(){
 
                 }
 
-                await criarJogo(
-                    jogo
-                )
+                if(jogo){
 
-                alert(
-                    "Jogo cadastrado!"
-                )
+                    await atualizarJogo(
+                        jogo.id,
+                        dadosJogo
+                    )
+
+                    alert(
+                        "Jogo atualizado!"
+                    )
+
+                }
+                else{
+
+                    await criarJogo(
+                        dadosJogo
+                    )
+
+                    alert(
+                        "Jogo cadastrado!"
+                    )
+
+                }
 
                 abrirCatalogo()
 
@@ -188,7 +228,7 @@ export function criarDetalhes(){
                 )
 
                 alert(
-                    "Erro ao cadastrar"
+                    "Erro ao salvar jogo"
                 )
 
             }
@@ -196,16 +236,27 @@ export function criarDetalhes(){
         }
     )
 
+    const botaoVoltar =
+    document.createElement("button")
+
+    botaoVoltar.textContent =
+    "Voltar"
+
+    botaoVoltar.addEventListener(
+        "click",
+        abrirCatalogo
+    )
+
     section.append(
         titulo,
         inputNome,
         inputDescricao,
-        inputCategoria,
         inputPreco,
         inputEstoque,
         inputImagem,
         preview,
-        botaoSalvar
+        botaoSalvar,
+        botaoVoltar
     )
 
     return section

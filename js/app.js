@@ -29,12 +29,16 @@ export async function abrirCatalogo(){
 
 }
 
-export function abrirDetalhes(){
+export function abrirDetalhes(
+    jogo = null
+){
 
     limparTela()
 
     const detalhes =
-    criarDetalhes()
+    criarDetalhes(
+        jogo
+    )
 
     app.appendChild(
         detalhes

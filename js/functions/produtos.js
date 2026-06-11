@@ -66,3 +66,85 @@ export async function criarJogo(
     return await resposta.json()
 
 }
+
+export async function atualizarJogo(
+    id,
+    jogo
+){
+
+    const token =
+    localStorage.getItem(
+        "token"
+    )
+
+    const resposta =
+    await fetch(
+        `${API}/${id}`,
+        {
+            method:"PUT",
+
+            headers:{
+                "Content-Type":
+                "application/json",
+
+                "Authorization":
+                `Bearer ${token}`
+            },
+
+            body:
+            JSON.stringify(
+                jogo
+            )
+        }
+    )
+
+    if(!resposta.ok){
+
+        const erro =
+        await resposta.text()
+
+        console.log(
+            erro
+        )
+
+        throw new Error(
+            "Erro ao atualizar jogo"
+        )
+
+    }
+
+    return await resposta.json()
+
+}
+
+export async function excluirJogo(
+    id
+){
+
+    const token =
+    localStorage.getItem(
+        "token"
+    )
+
+    const resposta =
+    await fetch(
+        `${API}/${id}`,
+        {
+            method:"DELETE",
+
+            headers:{
+                "Authorization":
+                `Bearer ${token}`
+            }
+        }
+    )
+
+    if(!resposta.ok){
+
+        throw new Error(
+            "Erro ao excluir jogo"
+        )
+
+    }
+
+}
