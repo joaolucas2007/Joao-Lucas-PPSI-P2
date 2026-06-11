@@ -1,110 +1,777 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600&family=Share+Tech+Mono&display=swap');
+
+/* ══════════════════════════════════════════════
+   TOKENS
+══════════════════════════════════════════════ */
+
+:root {
+    --neon:          #00f5a0;
+    --neon-dim:      #00c07a;
+    --neon-glow:     rgba(0,245,160,0.25);
+    --accent:        #7c3aed;
+    --accent-glow:   rgba(124,58,237,0.3);
+    --accent2:       #f72585;
+    --accent2-glow:  rgba(247,37,133,0.3);
+    --amber:         #f59e0b;
+    --amber-glow:    rgba(245,158,11,0.3);
+    --bg-deep:       #04080d;
+    --bg-card:       #0b1622;
+    --bg-card2:      #101e2e;
+    --bg-card3:      #0e1a28;
+    --border-glow:   rgba(0,245,160,0.28);
+    --border-dim:    rgba(0,245,160,0.1);
+    --text-bright:   #dff0f8;
+    --text-muted:    #5d8099;
+    --scanline:      rgba(0,245,160,0.013);
 }
 
-body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#121212;
-    color:white;
+/* ══════════════════════════════════════════════
+   RESET
+══════════════════════════════════════════════ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-header{
-    padding:20px;
-    text-align:center;
-    background:#1e1e1e;
+/* ══════════════════════════════════════════════
+   BODY — grade + scanlines
+══════════════════════════════════════════════ */
+
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background: var(--bg-deep);
+    color: var(--text-bright);
+    min-height: 100vh;
+    background-image:
+        linear-gradient(var(--scanline) 1px, transparent 1px),
+        linear-gradient(90deg, var(--scanline) 1px, transparent 1px),
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,0.06) 0%, transparent 70%);
+    background-size: 44px 44px, 44px 44px, 100% 100%;
 }
 
-main{
-    width:90%;
-    max-width:1200px;
-    margin:20px auto;
+/* ══════════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════════ */
+
+header {
+    background: rgba(4,8,13,0.92);
+    border-bottom: 1px solid var(--border-dim);
+    padding: 16px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(16px);
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-#catalogo{
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(250px,1fr));
-
-    gap:20px;
+header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        var(--accent) 20%,
+        var(--neon) 50%,
+        var(--accent2) 80%,
+        transparent 100%);
+    opacity: 0.6;
 }
 
-.card{
-    background:#222;
-
-    border-radius:10px;
-
-    overflow:hidden;
-
-    transition:.3s;
+header h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: 5px;
+    color: var(--neon);
+    text-transform: uppercase;
+    text-shadow:
+        0 0 10px rgba(0,245,160,0.7),
+        0 0 30px rgba(0,245,160,0.3);
 }
 
-.card:hover{
-    transform:translateY(-5px);
+/* ══════════════════════════════════════════════
+   APP CONTAINER
+══════════════════════════════════════════════ */
+
+#app {
+    width: 100%;
+    max-width: 1440px;
+    margin: auto;
+    padding: 48px 36px;
 }
 
-.card img{
-    width:100%;
-    height:250px;
-    object-fit:cover;
+/* ══════════════════════════════════════════════
+   SECTION BASE
+══════════════════════════════════════════════ */
+
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 
-.card-body{
-    padding:15px;
+section h1,
+section h2 {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--neon);
+    text-align: center;
+    text-shadow: 0 0 18px rgba(0,245,160,0.45);
 }
 
-.card-body h2{
-    margin-bottom:10px;
+section h1::before,
+section h2::before {
+    content: '// ';
+    color: var(--accent);
+    font-family: 'Share Tech Mono', monospace;
+    opacity: 0.9;
 }
 
-.preco{
-    color:#00ff88;
-    font-weight:bold;
+/* ══════════════════════════════════════════════
+   INPUTS
+══════════════════════════════════════════════ */
+
+input,
+textarea {
+    width: 100%;
+    padding: 13px 16px;
+    background: rgba(0,245,160,0.03);
+    border: 1px solid var(--border-dim);
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 500;
+    color: var(--text-bright);
+    transition: border-color .2s, background .2s, box-shadow .2s;
+    letter-spacing: .5px;
 }
 
-input{
-    width:100%;
-    padding:12px;
-    margin:10px 0;
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-muted);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
 }
 
-button{
-    padding:12px;
-    cursor:pointer;
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--neon);
+    background: rgba(0,245,160,0.055);
+    box-shadow:
+        0 0 0 1px var(--neon),
+        0 0 18px rgba(0,245,160,0.1),
+        inset 0 1px 0 rgba(0,245,160,0.05);
 }
 
-section{
-    max-width:500px;
-    margin:auto;
+textarea {
+    resize: none;
+    min-height: 120px;
+    line-height: 1.6;
 }
 
-
-
-.detalhes{
-
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-
-    max-width:700px;
-
-    margin:auto;
-
+input[type="file"] {
+    padding: 10px 14px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    cursor: pointer;
+    letter-spacing: 1px;
 }
 
-.detalhes input,
-.detalhes textarea{
-
-    padding:10px;
-
+input[type="file"]::-webkit-file-upload-button {
+    background: var(--bg-card2);
+    border: 1px solid var(--border-glow);
+    color: var(--neon);
+    padding: 6px 14px;
+    border-radius: 3px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    cursor: pointer;
+    margin-right: 12px;
+    transition: background .2s;
+    letter-spacing: 1px;
 }
 
-.preview{
+input[type="file"]::-webkit-file-upload-button:hover {
+    background: rgba(0,245,160,0.1);
+}
 
-    width:250px;
+/* ── Fix autofill Chrome (sobrescreve bg branco) ── */
 
-    border-radius:10px;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px #0b1622 inset !important;
+    box-shadow: 0 0 0 1000px #0b1622 inset !important;
+    -webkit-text-fill-color: #dff0f8 !important;
+    caret-color: #dff0f8;
+    border-color: var(--border-dim) !important;
+    transition: background-color 9999s ease-in-out 0s;
+}
 
+/* ══════════════════════════════════════════════
+   BOTÕES
+══════════════════════════════════════════════ */
+
+button {
+    padding: 12px 22px;
+    border-radius: 3px;
+    background: transparent;
+    color: var(--neon);
+    font-size: 12px;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color .2s, box-shadow .2s, transform .15s;
+    border: 1px solid var(--neon);
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--neon);
+    transform: translateX(-101%);
+    transition: transform .22s cubic-bezier(.4,0,.2,1);
+    z-index: -1;
+}
+
+button:hover::before {
+    transform: translateX(0);
+}
+
+button:hover {
+    color: var(--bg-deep);
+    box-shadow: 0 0 22px var(--neon-glow), 0 4px 16px rgba(0,0,0,0.4);
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* ══════════════════════════════════════════════
+   LOGIN — container principal
+══════════════════════════════════════════════ */
+
+/* A section do login não é catalogo nem form de detalhes */
+section:not(#catalogo):not(#cadastro) {
+    max-width: 960px;
+    margin: auto;
+    background: transparent;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    gap: 32px;
+}
+
+section:not(#catalogo):not(#cadastro)::after {
+    display: none;
+}
+
+/* Título grande "GameVerse" na tela de login */
+section:not(#catalogo):not(#cadastro) > h1 {
+    font-size: 2.4rem;
+    letter-spacing: 8px;
+    text-shadow:
+        0 0 20px rgba(0,245,160,0.6),
+        0 0 60px rgba(0,245,160,0.2);
+    margin-bottom: 8px;
+}
+
+/* ── areaLogin: dois cards lado a lado ────────── */
+
+section:not(#catalogo):not(#cadastro) > div {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* ── adminCard e clienteCard ─────────────────── */
+
+section:not(#catalogo):not(#cadastro) > div > div {
+    flex: 1 1 340px;
+    max-width: 420px;
+    background: var(--bg-card);
+    border-radius: 8px;
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border-dim);
+    transition: border-color .25s, box-shadow .25s;
+}
+
+section:not(#catalogo):not(#cadastro) > div > div::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Admin: topo roxo */
+section:not(#catalogo):not(#cadastro) > div > div:first-child::before {
+    background: linear-gradient(90deg, var(--accent), var(--neon));
+}
+
+/* Cliente: topo rosa */
+section:not(#catalogo):not(#cadastro) > div > div:last-child::before {
+    background: linear-gradient(90deg, var(--accent2), var(--amber));
+}
+
+/* Cantos cortados — efeito HUD */
+section:not(#catalogo):not(#cadastro) > div > div::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 20px; height: 20px;
+    background: var(--bg-deep);
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+section:not(#catalogo):not(#cadastro) > div > div:hover {
+    border-color: var(--border-glow);
+    box-shadow:
+        0 16px 48px rgba(0,0,0,0.5),
+        0 0 32px rgba(0,245,160,0.06);
+}
+
+/* ── Títulos dentro dos login cards ──────────── */
+
+section:not(#catalogo):not(#cadastro) > div > div > h2 {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-align: left;
+    text-shadow: none;
+    margin-bottom: 4px;
+}
+
+section:not(#catalogo):not(#cadastro) > div > div:first-child > h2 {
+    color: var(--accent);
+    text-shadow: 0 0 14px var(--accent-glow);
+}
+
+section:not(#catalogo):not(#cadastro) > div > div:last-child > h2 {
+    color: var(--accent2);
+    text-shadow: 0 0 14px var(--accent2-glow);
+}
+
+section:not(#catalogo):not(#cadastro) > div > div > h2::before {
+    display: none;
+}
+
+/* ── Botão admin: roxo ────────────────────────── */
+
+section:not(#catalogo):not(#cadastro) > div > div:first-child > button {
+    border-color: var(--accent);
+    color: var(--accent);
+    width: 100%;
+}
+
+section:not(#catalogo):not(#cadastro) > div > div:first-child > button::before {
+    background: var(--accent);
+}
+
+section:not(#catalogo):not(#cadastro) > div > div:first-child > button:hover {
+    color: white;
+    box-shadow: 0 0 22px var(--accent-glow);
+}
+
+/* ── Botão cliente: rosa ─────────────────────── */
+
+section:not(#catalogo):not(#cadastro) > div > div:last-child > button {
+    border-color: var(--accent2);
+    color: var(--accent2);
+    width: 100%;
+}
+
+section:not(#catalogo):not(#cadastro) > div > div:last-child > button::before {
+    background: var(--accent2);
+}
+
+section:not(#catalogo):not(#cadastro) > div > div:last-child > button:hover {
+    color: white;
+    box-shadow: 0 0 22px var(--accent2-glow);
+}
+
+/* ── Badge de role no canto ──────────────────── */
+
+section:not(#catalogo):not(#cadastro) > div > div:first-child::after {
+    background: var(--accent);
+    opacity: 0.15;
+}
+
+section:not(#catalogo):not(#cadastro) > div > div:last-child::after {
+    background: var(--accent2);
+    opacity: 0.15;
+}
+
+/* ── Mensagem de erro ────────────────────────── */
+
+section:not(#catalogo):not(#cadastro) > div > div > p {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: var(--accent2);
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* ══════════════════════════════════════════════
+   FORMULÁRIO CADASTRO / EDIÇÃO
+══════════════════════════════════════════════ */
+
+section:not(#catalogo):has(input[type="file"]) {
+    max-width: 660px;
+    margin: auto;
+    background: var(--bg-card);
+    padding: 40px 36px;
+    border-radius: 8px;
+    border: 1px solid var(--border-dim);
+    position: relative;
+    gap: 18px;
+}
+
+section:not(#catalogo):has(input[type="file"])::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent,
+        var(--neon) 40%,
+        var(--accent) 60%,
+        transparent);
+    opacity: 0.45;
+}
+
+/* fallback para browsers sem :has() */
+section:not(#catalogo) {
+    position: relative;
+}
+
+/* ══════════════════════════════════════════════
+   CATÁLOGO
+══════════════════════════════════════════════ */
+
+#catalogo {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 16px;
+}
+
+#catalogo h1 {
+    grid-column: 1 / -1;
+    font-size: 1.7rem;
+    letter-spacing: 4px;
+    text-align: left;
+}
+
+#catalogo h1::before {
+    content: '> ';
+    color: var(--neon);
+    opacity: 0.5;
+}
+
+#catalogo > button {
+    grid-column: 1 / -1;
+    max-width: 220px;
+}
+
+/* ══════════════════════════════════════════════
+   CARD DE JOGO
+══════════════════════════════════════════════ */
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dim);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color .25s, transform .25s, box-shadow .25s;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* linha de topo sempre visível, bem sutil */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+        var(--accent) 0%,
+        var(--neon) 50%,
+        var(--accent2) 100%);
+    opacity: 0.18;
+    transition: opacity .25s;
+    z-index: 1;
+}
+
+/* canto cortado decorativo */
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 16px; height: 16px;
+    background: var(--bg-deep);
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
+    z-index: 2;
+    opacity: 0.7;
+}
+
+.card:hover {
+    border-color: var(--border-glow);
+    transform: translateY(-5px);
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.55),
+        0 0 40px rgba(0,245,160,0.06);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.8) brightness(0.88);
+    transition: filter .35s;
+}
+
+.card:hover img {
+    filter: saturate(1.05) brightness(1);
+}
+
+.card h2 {
+    padding: 14px 16px 0;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text-bright);
+    text-transform: uppercase;
+    line-height: 1.4;
+}
+
+.card p {
+    padding: 0 16px;
+    margin-top: 8px;
+    line-height: 1.6;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    font-weight: 500;
+    flex: 1;
+}
+
+.card p:last-of-type {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.05rem;
+    color: var(--neon);
+    text-shadow: 0 0 12px rgba(0,245,160,0.5);
+    margin-top: 14px;
+    padding-bottom: 2px;
+    flex: 0;
+}
+
+.card p:last-of-type::before {
+    content: 'R$ ';
+    color: var(--accent);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.card button {
+    margin: 6px 14px;
+    font-size: 10px;
+    padding: 8px 12px;
+    letter-spacing: 1.5px;
+}
+
+.card button:last-child {
+    margin-bottom: 14px;
+}
+
+/* ── Botão excluir ────────────────────────────── */
+
+.card button:last-child {
+    border-color: var(--accent2);
+    color: var(--accent2);
+}
+
+.card button:last-child::before {
+    background: var(--accent2);
+}
+
+.card button:last-child:hover {
+    color: white;
+    box-shadow: 0 0 22px var(--accent2-glow);
+}
+
+/* ── Botão editar ─────────────────────────────── */
+
+.card button:nth-last-child(2) {
+    border-color: var(--amber);
+    color: var(--amber);
+}
+
+.card button:nth-last-child(2)::before {
+    background: var(--amber);
+}
+
+.card button:nth-last-child(2):hover {
+    color: var(--bg-deep);
+    box-shadow: 0 0 22px var(--amber-glow);
+}
+
+/* ── Botão comprar (sempre presente, admin ou cliente) ── */
+
+.btn-comprar {
+    margin: 6px 14px !important;
+    border-color: var(--neon) !important;
+    color: var(--neon) !important;
+    font-size: 10px;
+    padding: 8px 12px;
+    letter-spacing: 2px;
+}
+
+.btn-comprar::before {
+    background: var(--neon) !important;
+}
+
+.btn-comprar:hover {
+    color: var(--bg-deep) !important;
+    box-shadow: 0 0 26px var(--neon-glow) !important;
+}
+
+/* quando só tem o botão comprar (cliente): margem bottom */
+.card .btn-comprar:last-child {
+    margin-bottom: 14px !important;
+    border-color: var(--neon) !important;
+    color: var(--neon) !important;
+}
+
+.card .btn-comprar:last-child::before {
+    background: var(--neon) !important;
+}
+
+/* ── Botão voltar ao login (catálogo) ─────────── */
+
+.btn-voltar-login {
+    grid-column: 1 / -1;
+    max-width: 180px;
+    border-color: var(--text-muted) !important;
+    color: var(--text-muted) !important;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+}
+
+.btn-voltar-login::before {
+    background: var(--text-muted) !important;
+}
+
+.btn-voltar-login:hover {
+    color: var(--bg-deep) !important;
+    box-shadow: none !important;
+}
+
+/* ══════════════════════════════════════════════
+   PREVIEW DE IMAGEM
+══════════════════════════════════════════════ */
+
+.preview {
+    width: 100%;
+    max-width: 360px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--border-glow);
+    margin: 4px auto;
+    display: block;
+    filter: saturate(0.85) brightness(0.9);
+    transition: filter .3s;
+}
+
+.preview:hover {
+    filter: saturate(1) brightness(1);
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVO
+══════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+    section:not(#catalogo):not(#cadastro) > div {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    section:not(#catalogo):not(#cadastro) > div > div {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 13px 20px;
+    }
+
+    header h1 {
+        font-size: 1.1rem;
+        letter-spacing: 3px;
+    }
+
+    #app {
+        padding: 24px 16px;
+    }
+
+    .card img {
+        height: 180px;
+    }
+
+    section:not(#catalogo):has(input[type="file"]) {
+        padding: 28px 20px;
+    }
+
+    section:not(#catalogo):not(#cadastro) > h1 {
+        font-size: 1.6rem;
+        letter-spacing: 5px;
+    }
+
+    #catalogo h1 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    section:not(#catalogo):not(#cadastro) > div > div {
+        padding: 28px 20px;
+    }
 }

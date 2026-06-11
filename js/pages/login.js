@@ -5,51 +5,81 @@ export function criarLogin(
     aoLogar
 ){
 
-    const section =
+    const container =
     document.createElement("section")
 
     const titulo =
-    document.createElement("h2")
+    document.createElement("h1")
 
     titulo.textContent =
-    "Login"
+    "GameVerse"
 
-    const inputEmail =
+    const areaLogin =
+    document.createElement("div")
+
+    areaLogin.style.display =
+    "flex"
+
+    areaLogin.style.gap =
+    "20px"
+
+    areaLogin.style.flexWrap =
+    "wrap"
+
+    /*
+    ADMIN
+    */
+
+    const adminCard =
+    document.createElement("div")
+
+    const adminTitulo =
+    document.createElement("h2")
+
+    adminTitulo.textContent =
+    "Administrador"
+
+    const adminEmail =
     document.createElement("input")
 
-    inputEmail.type =
+    adminEmail.type =
     "email"
 
-    inputEmail.placeholder =
-    "Digite seu email"
+    adminEmail.placeholder =
+    "Email"
 
-    const inputSenha =
+    const adminSenha =
     document.createElement("input")
 
-    inputSenha.type =
+    adminSenha.type =
     "password"
 
-    inputSenha.placeholder =
-    "Digite sua senha"
+    adminSenha.placeholder =
+    "Senha"
 
-    const botao =
+    const adminBotao =
     document.createElement("button")
 
-    botao.textContent =
+    adminBotao.textContent =
     "Entrar"
 
-    const mensagem =
+    const adminMsg =
     document.createElement("p")
 
-    botao.addEventListener(
+    adminBotao.addEventListener(
         "click",
         async ()=>{
 
             try{
 
                 await login(
-                    inputEmail.value,
-                    inputSenha.value
+                    adminEmail.value,
+                    adminSenha.value
+                )
+
+                localStorage.setItem(
+                    "tipoUsuario",
+                    "admin"
                 )
 
                 aoLogar()
@@ -57,21 +87,87 @@ export function criarLogin(
             }
             catch{
 
-                mensagem.textContent =
-                "Email ou senha inválidos"
+                adminMsg.textContent =
+                "Login inválido"
 
             }
 
         }
     )
 
-    section.append(
-        titulo,
-        inputEmail,
-        inputSenha,
-        botao,
-        mensagem
+    adminCard.append(
+        adminTitulo,
+        adminEmail,
+        adminSenha,
+        adminBotao,
+        adminMsg
     )
 
-    return section
+    /*
+    CLIENTE
+    */
+
+    const clienteCard =
+    document.createElement("div")
+
+    const clienteTitulo =
+    document.createElement("h2")
+
+    clienteTitulo.textContent =
+    "Cliente"
+
+    const clienteEmail =
+    document.createElement("input")
+
+    clienteEmail.placeholder =
+    "Email"
+
+    const clienteSenha =
+    document.createElement("input")
+
+    clienteSenha.type =
+    "password"
+
+    clienteSenha.placeholder =
+    "Senha"
+
+    const clienteBotao =
+    document.createElement("button")
+
+    clienteBotao.textContent =
+    "Entrar"
+
+    clienteBotao.addEventListener(
+        "click",
+        ()=>{
+
+            localStorage.setItem(
+                "tipoUsuario",
+                "cliente"
+            )
+
+            aoLogar()
+
+        }
+    )
+
+    clienteCard.append(
+        clienteTitulo,
+        clienteEmail,
+        clienteSenha,
+        clienteBotao
+    )
+
+    areaLogin.append(
+        adminCard,
+        clienteCard
+    )
+
+    container.append(
+        titulo,
+        areaLogin
+    )
+
+    return container
+
 }

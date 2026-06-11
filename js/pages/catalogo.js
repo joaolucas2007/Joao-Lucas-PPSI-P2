@@ -5,7 +5,8 @@ import {
 from "../functions/produtos.js"
 
 import {
-    abrirDetalhes
+    abrirDetalhes,
+    abrirLogin
 }
 from "../app.js"
 
@@ -23,23 +24,58 @@ export async function criarCatalogo(){
     titulo.textContent =
     "Catálogo de Jogos"
 
-    const botaoNovo =
+    section.append(
+        titulo
+    )
+
+    const botaoVoltarLogin =
     document.createElement("button")
 
-    botaoNovo.textContent =
-    "Cadastrar Jogo"
+    botaoVoltarLogin.textContent =
+    "Voltar ao Login"
 
-    botaoNovo.addEventListener(
+    botaoVoltarLogin.classList.add(
+        "btn-voltar-login"
+    )
+
+    botaoVoltarLogin.addEventListener(
         "click",
         ()=>{
-            abrirDetalhes()
+            abrirLogin()
         }
     )
 
     section.append(
-        titulo,
-        botaoNovo
+        botaoVoltarLogin
     )
+
+    const tipoUsuario =
+    localStorage.getItem(
+        "tipoUsuario"
+    )
+
+    if(
+        tipoUsuario === "admin"
+    ){
+
+        const botaoNovo =
+        document.createElement("button")
+
+        botaoNovo.textContent =
+        "Cadastrar Jogo"
+
+        botaoNovo.addEventListener(
+            "click",
+            ()=>{
+                abrirDetalhes()
+            }
+        )
+
+        section.append(
+            botaoNovo
+        )
+
+    }
 
     const jogos =
     await listarJogos()
@@ -91,70 +127,16 @@ export async function criarCatalogo(){
             preco.textContent =
             `R$ ${jogo.preco}`
 
-            const botaoEditar =
+            const botaoComprar =
             document.createElement(
                 "button"
             )
 
-            botaoEditar.textContent =
-            "Editar"
+            botaoComprar.textContent =
+            "Comprar"
 
-            botaoEditar.addEventListener(
-                "click",
-                ()=>{
-
-                    abrirDetalhes(
-                        jogo
-                    )
-
-                }
-            )
-
-            const botaoExcluir =
-            document.createElement(
-                "button"
-            )
-
-            botaoExcluir.textContent =
-            "Excluir"
-
-            botaoExcluir.addEventListener(
-                "click",
-                async ()=>{
-
-                    const confirmar =
-                    confirm(
-                        `Excluir ${jogo.nome}?`
-                    )
-
-                    if(
-                        !confirmar
-                    ){
-                        return
-                    }
-
-                    try{
-
-                        await excluirJogo(
-                            jogo.id
-                        )
-
-                        card.remove()
-
-                        alert(
-                            "Jogo excluído!"
-                        )
-
-                    }
-                    catch{
-
-                        alert(
-                            "Erro ao excluir jogo"
-                        )
-
-                    }
-
-                }
+            botaoComprar.classList.add(
+                "btn-comprar"
             )
 
             card.append(
@@ -162,9 +144,83 @@ export async function criarCatalogo(){
                 nome,
                 descricao,
                 preco,
-                botaoEditar,
-                botaoExcluir
+                botaoComprar
             )
+
+            if(
+                tipoUsuario === "admin"
+            ){
+
+                const botaoEditar =
+                document.createElement(
+                    "button"
+                )
+
+                botaoEditar.textContent =
+                "Editar"
+
+                botaoEditar.addEventListener(
+                    "click",
+                    ()=>{
+                        abrirDetalhes(
+                            jogo
+                        )
+                    }
+                )
+
+                const botaoExcluir =
+                document.createElement(
+                    "button"
+                )
+
+                botaoExcluir.textContent =
+                "Excluir"
+
+                botaoExcluir.addEventListener(
+                    "click",
+                    async ()=>{
+
+                        const confirmar =
+                        confirm(
+                            `Excluir ${jogo.nome}?`
+                        )
+
+                        if(
+                            !confirmar
+                        ){
+                            return
+                        }
+
+                        try{
+
+                            await excluirJogo(
+                                jogo.id
+                            )
+
+                            card.remove()
+
+                            alert(
+                                "Jogo excluído!"
+                            )
+
+                        }
+                        catch{
+
+                            alert(
+                                "Erro ao excluir jogo"
+                            )
+
+                        }
+
+                    }
+                )
+
+                card.append(
+                    botaoEditar,
+                    botaoExcluir
+                )
+
+            }
 
             section.appendChild(
                 card

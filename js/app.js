@@ -46,7 +46,7 @@ export function abrirDetalhes(
 
 }
 
-function abrirLogin(){
+export function abrirLogin(){
 
     limparTela()
 
