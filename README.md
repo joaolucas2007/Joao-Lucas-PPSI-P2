@@ -33,14 +33,14 @@ Permitir que o admin visualize, cadastre, edite e remova jogos por meio de uma i
 
 ## 🌐 Deploy
 
-🔗 GitHub Pages: `https://joaolucas2007.github.io/Joao-Lucas-PPSI-P2/`
+🔗 GitHub Pages: https://joaolucas2007.github.io/Joao-Lucas-PPSI-P2/
 
-🔗Link Repositório : `https://github.com/joaolucas2007/Joao-Lucas-PPSI-P2`
+🔗Link Repositório : https://github.com/joaolucas2007/Joao-Lucas-PPSI-P2
 ---
 
 ## 🎬 Vídeo Pitch
 
-▶️ `<!-- https://youtube.com/shorts/-4Xtw8u-d7M?si=a536gG62NNr7vVpF -->`
+▶️ https://youtube.com/shorts/-4Xtw8u-d7M?si=a536gG62NNr7vVpF 
 
 ---
 
