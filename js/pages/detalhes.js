@@ -15,7 +15,7 @@ import {
 from "../app.js"
 
 export function criarDetalhes(
-    jogo = null
+    jogo
 ){
 
     const section =
@@ -24,10 +24,18 @@ export function criarDetalhes(
     const titulo =
     document.createElement("h2")
 
-    titulo.textContent =
-    jogo
-    ? "Editar Jogo"
-    : "Cadastrar Jogo"
+    if(jogo){
+
+        titulo.textContent =
+        "Editar Jogo"
+
+    }
+    else{
+
+        titulo.textContent =
+        "Cadastrar Jogo"
+
+    }
 
     const inputNome =
     document.createElement("input")
@@ -35,8 +43,12 @@ export function criarDetalhes(
     inputNome.placeholder =
     "Nome"
 
-    inputNome.value =
-    jogo?.nome || ""
+    if(jogo){
+
+        inputNome.value =
+        jogo.nome
+
+    }
 
     const inputDescricao =
     document.createElement("textarea")
@@ -44,8 +56,12 @@ export function criarDetalhes(
     inputDescricao.placeholder =
     "Descrição"
 
-    inputDescricao.value =
-    jogo?.descricao || ""
+    if(jogo){
+
+        inputDescricao.value =
+        jogo.descricao
+
+    }
 
     const inputPreco =
     document.createElement("input")
@@ -56,8 +72,12 @@ export function criarDetalhes(
     inputPreco.placeholder =
     "Preço"
 
-    inputPreco.value =
-    jogo?.preco || ""
+    if(jogo){
+
+        inputPreco.value =
+        jogo.preco
+
+    }
 
     const inputEstoque =
     document.createElement("input")
@@ -68,8 +88,12 @@ export function criarDetalhes(
     inputEstoque.placeholder =
     "Estoque"
 
-    inputEstoque.value =
-    jogo?.estoque || ""
+    if(jogo){
+
+        inputEstoque.value =
+        jogo.estoque
+
+    }
 
     const inputImagem =
     document.createElement("input")
@@ -88,7 +112,8 @@ export function criarDetalhes(
     )
 
     if(
-        jogo?.imagemUrl
+        jogo &&
+        jogo.imagemUrl
     ){
 
         preview.src =
@@ -118,10 +143,18 @@ export function criarDetalhes(
     const botaoSalvar =
     document.createElement("button")
 
-    botaoSalvar.textContent =
-    jogo
-    ? "Atualizar"
-    : "Salvar"
+    if(jogo){
+
+        botaoSalvar.textContent =
+        "Atualizar"
+
+    }
+    else{
+
+        botaoSalvar.textContent =
+        "Salvar"
+
+    }
 
     botaoSalvar.addEventListener(
         "click",
@@ -130,7 +163,17 @@ export function criarDetalhes(
             try{
 
                 let imagemUrl =
-                jogo?.imagemUrl || ""
+                ""
+
+                if(
+                    jogo &&
+                    jogo.imagemUrl
+                ){
+
+                    imagemUrl =
+                    jogo.imagemUrl
+
+                }
 
                 const arquivo =
                 inputImagem.files[0]
@@ -152,8 +195,8 @@ export function criarDetalhes(
                     slug:
                     inputNome.value
                         .toLowerCase()
-                        .replaceAll(
-                            " ",
+                        .replace(
+                            / /g,
                             "-"
                         ),
 
