@@ -33,7 +33,7 @@ Permitir que o admin visualize, cadastre, edite e remova jogos por meio de uma i
 
 ## 🌐 Deploy
 
-🔗 GitHub Pages: https://joaolucas2007.github.io/Joao-Lucas-PPSI-P2/
+🔗 GitHub Pages: https://joaolucas2007.github.io/Joao-Lucas-PPSI-P2/ `LOGIN ADM: admin@store.com SENHA: 123456`
 
 🔗Link Repositório : https://github.com/joaolucas2007/Joao-Lucas-PPSI-P2
 ---
